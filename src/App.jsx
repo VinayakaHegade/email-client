@@ -1,6 +1,5 @@
 import './App.css'
 import EmailType from './Components/EmailType'
-// import EmailList from './Components/EmailList'
 
 function App() {
 

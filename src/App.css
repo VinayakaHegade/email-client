@@ -1,22 +1,24 @@
 * {
   box-sizing: border-box;
-  background: #f4f5f9;
-  color: #636363;
 }
 
 body {
-  margin: 30px;
+  background-color: #f4f5f9;
+  margin: 30px 40px;
+  font-size: 15px;
+  color: #636363;
 }
 
 .header {
   display: flex;
+  margin-bottom: 20px;
   /* margin: 30px; */
 }
 
 .filter {
   display: flex;
   padding: 3px 0px;
-  margin-right: 24px;
+  margin-right: 25px;
 }
 
 .emailtype {
@@ -25,16 +27,12 @@ body {
 
 .emailtype>.emailtype_option {
   display: flex;
-  margin-right: 12px;
-}
-
-.emailtype>.emailtype_option>span {
-  display: flex;
-  padding: 3px 10px;
+  margin-right: 8px;
+  padding: 3px 14px;
   cursor: pointer;
 }
 
-.emailtype>.emailtype_option>span:hover {
+.emailtype>.emailtype_option:hover {
   background-color: #e1e4ea;
   border-radius: 15px;
   border: #cfd2dc;
@@ -44,50 +42,68 @@ body {
   width: 100%;
   border: 1px solid #cfd2dc;
   display: flex;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background-color: white;
   /* margin: 30px; */
-  margin-top: 20px;
   padding: 0.5em 1em;
   overflow: hidden;
 }
 
+.email_list:hover {
+  cursor: pointer;
+  background-color: #f2f2f2;
+}
+
 .email_display_image {
-  width: 64px;
+  width: 62px;
 }
 
 .email_fields {
-  margin-left: 1em;
+  margin-left: 15px;
 }
 
-.email_fields>p {
+.email_fields>section {
   margin: 0px 0px 3px 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
 
-.email_field_from>span{
+.email_field_from>span {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
 }
 
-.email_field_subject>span{
+.email_field_subject>span {
   font-weight: bold;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .email_description {
-  padding: 6px 0px;
-  font-size: smaller;
+  padding: 4px 0px 1px;
+  font-size: 14px;
+  /* overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical; */
 }
-.email_field_date>span{
-  margin-right: 25px;
+
+.email_field_date {
+  margin-right: 30px;
 }
 
 .email_fields>div>button {
+  all: unset;
   font-weight: bold;
   border: none;
   /* border: 1px solid ;
   border-radius: 8px; */
-  margin-top: 5px;
+  margin-top: 4px;
   padding-left: 0px;
-  
 }
 
 .email_fields>div>button:hover {
@@ -95,6 +111,84 @@ body {
   cursor: pointer;
   /* border: 1px solid;
   background-color: #e1e4ea; */
+}
+
+.mail {
+  display: flex;
+}
+
+.list {
+  width: 40%;
+}
+
+.email_body {
+  display: flex;
+  width: 60%;
+  margin-left: 20px;
+  border: 1px solid #cfd2dc;
+  border-radius: 8px;
+  background-color: white;
+  padding: 25px 60px 25px 20px;
+}
+
+.email_body_aside {
+  width: fit-content;
+}
+
+.email_body_image {
+  width: 62px;
+}
+
+.email_body_main {
+  width: 100%;
+  margin-left: 20px;
+  /* border: 1px solid #e54065; */
+}
+
+.email_body_header {
+  display:flex;
+  justify-content: space-between;
+}
+
+.email_body_subject {
+  font-size: 30px;
+}
+
+.email_body_header>button {
+  background-color: white;
+  /* position: absolute;
+  right: 90px; */
+  height: min-content;
+  width: max-content;
+  border: 1px solid #e54065;
+  border-radius: 14px;
+  padding: 5px 12px;
+}
+
+.email_body_header>button:hover {
+  cursor: pointer;
+  color: #f4f5f9;
+  background-color: #e54065;
+}
+
+.email_body_date{
+  margin-top: 20px;
+}
+
+.email_content {
+  margin-top: 20px;
+}
+
+.profileImage {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  background: #e54065;
+  font-size: 28px;
+  color: #fff;
+  text-align: center;
+  line-height: 62px;
+  font-weight: bold;
 }
 
 

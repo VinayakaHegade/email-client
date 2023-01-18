@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function EmailList() {
   const [emails, setEmails] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -14,30 +16,38 @@ export default function EmailList() {
     fetchData();
   }, []);
 
-  console.log(emails);
+  const setMail = () => {
+    navigate("/mail");
+  };
 
   return emails?.map((email) => {
     return (
-      <div key={email.id} className="email_list">
-        <div>
-          <img
+      <div key={email.id} className="email_list" onClick={setMail}>
+        <aside>
+          {/* <img
             className="email_display_image"
             src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Eo_circle_pink_white_letter-f.svg"
-          />
-        </div>
-        <div className="email_fields">
-          <p className="email_field_from">
-            From:{" "}
+          /> */}
+          <div className="profileImage">
+            {email?.from?.name.charAt(0).toUpperCase()}
+          </div>
+        </aside>
+        <main className="email_fields">
+          <section className="email_field_from">
+            From:
             <span>
+              {" "}
               {email?.from?.name} {`<${email?.from?.email}>`}
             </span>
-          </p>
-          <p className="email_field_subject">
+          </section>
+          <section className="email_field_subject">
             Subject: <span>{email.subject}</span>
-          </p>
-          <p className="email_description">{email.short_description}</p>
-          <div className="email_field_date">
-            <span>
+          </section>
+          <section className="email_description">
+            {email.short_description}
+          </section>
+          <div>
+            <span className="email_field_date">
               {new Date(email.date).toLocaleString("en-GB", {
                 year: "numeric",
                 month: "numeric",
@@ -49,7 +59,7 @@ export default function EmailList() {
             </span>
             <button>Favorite</button>
           </div>
-        </div>
+        </main>
       </div>
     );
   });

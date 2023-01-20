@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import EmailList from "./EmailList";
+import { selectedMail } from "../features/mailSlice";
 
 function EmailBody() {
+  const mail = useSelector(selectedMail);
   const [emailBody, setEmailBody] = useState(null);
+  console.log(mail);
 
   useEffect(() => {
     async function fetchData() {
-      await fetch("https://flipkart-email-mock.now.sh/?id=3")
+      await fetch(`https://flipkart-email-mock.now.sh/?id=${mail?.id}`)
         .then((res) => res.json())
         .then((data) => {
           setEmailBody(data);
         });
     }
     fetchData();
-  }, []);
+  }, [mail]);
 
   console.log(emailBody);
 
@@ -31,11 +35,21 @@ function EmailBody() {
         </aside>
         <main className="email_body_main">
           <section className="email_body_header">
-            <strong className="email_body_subject">Lorem Ipsum</strong>
+            <strong className="email_body_subject">{mail?.subject}</strong>
             <button>Mark as Favorite</button>
           </section>
-          <div className="email_body_date">26/02/2020, 08:35</div>
-          <article className="email_content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Est ducimus iusto autem repellat totam tempore amet similique saepe? Molestiae magnam quisquam eaque dolorem doloremque exercitationem dolorum voluptas, ducimus est alias.</article>
+          <div className="email_body_date">
+            {new Date(mail?.date).toLocaleString("en-GB", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+            })}
+          </div>
+          <article className="email_content"></article>
+          {emailBody?.body}
         </main>
       </div>
     </div>

@@ -3,18 +3,18 @@ import { createSlice } from "@reduxjs/toolkit";
 export const mailSlice = createSlice({
   name: "mail",
   initialState: {
-    selectedMessage: null,
+    selectedMail: null,
   },
 
   reducers: {
-    openMessage: (state, action) => {
-      state.selectedMessage = action.payload;
+    openedMail: (state, action) => {
+      state.selectedMail = action.payload;
     },
   },
 });
 
-export const { openMessage } = mailSlice.actions;
+export const { openedMail } = mailSlice.actions;
 
-export const selectedMail = (state) => state.mail.selectedMessage;
+export const selectedMail = (state) => state.mail.selectedMail;
 
 export default mailSlice.reducer;

@@ -10,7 +10,7 @@ function App() {
       <div className="App">
         <EmailType />
         <Routes>
-          <Route path='/' element={<EmailList />}></Route>
+          <Route exact path="/" element={<EmailList />}></Route>
         </Routes>
         <Routes>
           <Route path="/mail" element={<EmailBody />}></Route>

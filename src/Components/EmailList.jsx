@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { openedMail } from "../features/mailSlice";
 
 export default function EmailList() {
   const [emails, setEmails] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
@@ -16,13 +19,14 @@ export default function EmailList() {
     fetchData();
   }, []);
 
-  const setMail = () => {
+  const setMail = (email) => {
+    dispatch(openedMail(email));
     navigate("/mail");
   };
 
   return emails?.map((email) => {
     return (
-      <div key={email.id} className="email_list" onClick={setMail}>
+      <div key={email.id} className="email_list" onClick={(e) => setMail(email)}>
         <aside>
           {/* <img
             className="email_display_image"

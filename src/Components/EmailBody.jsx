@@ -27,11 +27,14 @@ function EmailBody() {
         <EmailList />
       </div>
       <div className="email_body">
-        <aside className="email_body_aside">
-          <img
+        <aside>
+          {/* <img
             className="email_body_image"
             src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Eo_circle_pink_white_letter-f.svg"
-          />
+          /> */}
+          <div className="profileImage">
+            {mail?.from?.name.charAt(0).toUpperCase()}
+          </div>
         </aside>
         <main className="email_body_main">
           <section className="email_body_header">

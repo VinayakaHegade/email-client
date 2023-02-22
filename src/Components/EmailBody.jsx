@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import EmailList from "./EmailList";
 import { selectedMail } from "../features/mailSlice";
+import DOMPurify from "dompurify";
 
 function EmailBody() {
   const mail = useSelector(selectedMail);
   const [emailBody, setEmailBody] = useState(null);
-  console.log(mail);
 
   useEffect(() => {
     async function fetchData() {
@@ -51,8 +51,12 @@ function EmailBody() {
               hour12: true,
             })}
           </div>
-          <article className="email_content"></article>
-          {emailBody?.body}
+          <article
+            className="email_content"
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(emailBody?.body),
+            }}
+          ></article>
         </main>
       </div>
     </div>

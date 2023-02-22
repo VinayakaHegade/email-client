@@ -2,22 +2,35 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { openedMail } from "../features/mailSlice";
+import { fetchEmails } from "../features/allMailsSlice";
+import { useSelector } from "react-redux";
 
 export default function EmailList() {
-  const [emails, setEmails] = useState([]);
+  // const [emails, setEmails] = useState([]);
+  const emails = useSelector((state) => state.allMails.emails);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    async function fetchData() {
-      await fetch("https://flipkart-email-mock.now.sh/")
-        .then((res) => res.json())
-        .then((data) => {
-          setEmails(data.list);
-        });
-    }
-    fetchData();
-  }, []);
+  if (!emails?.length) {
+    dispatch(fetchEmails());
+  }
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     await fetch("https://flipkart-email-mock.now.sh/")
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         setEmails(data.list);
+  //       });
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // useEffect(() => {
+  //   dispatch(fetchEmails());
+  // }, []);
+
+  // const {emails: emails, loading } = state ?? {};
 
   const setMail = (email) => {
     dispatch(openedMail(email));
@@ -26,7 +39,11 @@ export default function EmailList() {
 
   return emails?.map((email) => {
     return (
-      <div key={email.id} className="email_list" onClick={(e) => setMail(email)}>
+      <div
+        key={email.id}
+        className="email_list"
+        onClick={(e) => setMail(email)}
+      >
         <aside>
           {/* <img
             className="email_display_image"

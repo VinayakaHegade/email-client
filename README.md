@@ -1,4 +1,4 @@
-# email-client
+# Email-Client App
 
 **Live Link** : https://email-client-demo.netlify.app
 

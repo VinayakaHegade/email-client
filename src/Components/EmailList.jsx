@@ -5,32 +5,33 @@ import { openedMail } from "../features/mailSlice";
 import { fetchEmails } from "../features/allMailsSlice";
 import { useSelector } from "react-redux";
 
-export default function EmailList() {
-  // const [emails, setEmails] = useState([]);
-  const emails = useSelector((state) => state.allMails.emails);
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+export default function EmailList({type}) {
+let emails;
 
-  if (!emails?.length) {
+const allEmails = useSelector((state) => state.allMails.emails);
+const navigate = useNavigate();
+const dispatch = useDispatch();
+
+useEffect(() => {
+  if (!allEmails?.length) {
     dispatch(fetchEmails());
   }
+}, [dispatch, allEmails]);
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     await fetch("https://flipkart-email-mock.now.sh/")
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setEmails(data.list);
-  //       });
-  //   }
-  //   fetchData();
-  // }, []);
 
-  // useEffect(() => {
-  //   dispatch(fetchEmails());
-  // }, []);
-
-  // const {emails: emails, loading } = state ?? {};
+switch (type) {
+  case "read":
+    emails = allEmails.filter((email) => email.status === "read");
+    break;
+  case "unread":
+    emails = allEmails.filter((email) => email.status === "unread");
+    break;
+  case "favorite":
+    emails = allEmails.filter((email) => email.status === "favorite");
+    break;
+  default:
+    emails = allEmails;
+}
 
   const setMail = (email) => {
     dispatch(openedMail(email));
@@ -45,10 +46,6 @@ export default function EmailList() {
         onClick={(e) => setMail(email)}
       >
         <aside>
-          {/* <img
-            className="email_display_image"
-            src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Eo_circle_pink_white_letter-f.svg"
-          /> */}
           <div className="profileImage">
             {email?.from?.name.charAt(0).toUpperCase()}
           </div>
@@ -85,55 +82,3 @@ export default function EmailList() {
     );
   });
 }
-
-// import React, { useState, useEffect } from "react";
-
-// const EmailList = () => {
-//   const [{emails}, setEmails] = useState([]);
-//   const [selectedEmail, setSelectedEmail] = useState(null);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const [error, setError] = useState(null);
-
-//   useEffect(() => {
-//     setIsLoading(true);
-
-//     fetch("https://flipkart-email-mock.now.sh/")
-//       .then((response) => response.json())
-//       .then((data) => {
-//         setEmails(data);
-//         setIsLoading(false);
-//         console.log(emails);
-//       })
-//       .catch((error) => {
-//         setError(error);
-//         setIsLoading(false);
-//       });
-
-//   }, []);
-
-//   if (isLoading) {
-//     return <p>Loading...</p>;
-//   }
-
-//   if (error) {
-//     return <p>{error.message}</p>;
-//   }
-
-//   return (
-//     <div>
-//       <ul>
-//         {[emails].map((email) => (
-//           <li key={email.id}>
-//             <p>From: {email.from}</p>
-//             <p>Subject: {email.subject}</p>
-//             <p>Description: {email.description}</p>
-//             <button onClick={() => setSelectedEmail(email)}>View</button>
-//           </li>
-//         ))}
-//       </ul>
-//       {selectedEmail && <EmailBody email={selectedEmail} />}
-//     </div>
-//   );
-// };
-
-// export default EmailList

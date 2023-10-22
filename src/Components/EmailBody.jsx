@@ -1,12 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import EmailList from "./EmailList";
-import { selectedMail } from "../features/mailSlice";
 import DOMPurify from "dompurify";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  markAsFavorite,
+  markAsRead,
+  selectEmailById,
+} from "../features/allMailsSlice";
+import { selectedMail } from "../features/mailSlice";
+import EmailList from "./EmailList";
 
 function EmailBody() {
   const mail = useSelector(selectedMail);
   const [emailBody, setEmailBody] = useState(null);
+  const email = useSelector((state) => selectEmailById(state, mail?.id));
+
+  const dispatch = useDispatch();
+
+  const handleMarkAsFavorite = () => {
+    dispatch(markAsFavorite(mail?.id));
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -14,12 +26,11 @@ function EmailBody() {
         .then((res) => res.json())
         .then((data) => {
           setEmailBody(data);
+          dispatch(markAsRead(mail?.id));
         });
     }
     fetchData();
   }, [mail]);
-
-  console.log(emailBody);
 
   return (
     <div className="mail">
@@ -28,10 +39,6 @@ function EmailBody() {
       </div>
       <div className="email_body">
         <aside>
-          {/* <img
-            className="email_body_image"
-            src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Eo_circle_pink_white_letter-f.svg"
-          /> */}
           <div className="profileImage">
             {mail?.from?.name.charAt(0).toUpperCase()}
           </div>
@@ -39,7 +46,12 @@ function EmailBody() {
         <main className="email_body_main">
           <section className="email_body_header">
             <strong className="email_body_subject">{mail?.subject}</strong>
-            <button>Mark as Favorite</button>
+            <button
+              onClick={handleMarkAsFavorite}
+              className={email?.status === "favorite" ? "favorite" : ""}
+            >
+              Mark as Favorite
+            </button>
           </section>
           <div className="email_body_date">
             {new Date(mail?.date).toLocaleString("en-GB", {

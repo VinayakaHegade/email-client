@@ -9,9 +9,14 @@ body {
   color: #636363;
 }
 
+.main-wrapper {
+  display: flex;
+}
+
 .header {
   display: flex;
   margin-bottom: 20px;
+  align-items: center;
 }
 
 .filter {
@@ -37,6 +42,16 @@ body {
   border: #cfd2dc;
 }
 
+.emailtype > .emailtype_option.active {
+  background-color: #e1e4ea;
+  border-radius: 15px;
+  border: #cfd2dc;
+}
+
+.email-list-container {
+  flex-grow: 1;
+}
+
 .email_list {
   width: 100%;
   border: 1px solid #cfd2dc;
@@ -50,6 +65,10 @@ body {
 
 .email_list:hover {
   cursor: pointer;
+  background-color: #f2f2f2;
+}
+
+.email_list.selected {
   background-color: #f2f2f2;
 }
 
@@ -100,6 +119,10 @@ body {
 .email_fields > div > button:hover {
   color: #e54065;
   cursor: pointer;
+}
+
+.email_fields > div > button.favorite {
+  color: #e54065;
 }
 
 .mail {
@@ -158,6 +181,8 @@ body {
 }
 
 .email_body_header > button.favorite {
+  cursor: default;
+  color: #f4f5f9;
   background-color: #e54065;
 }
 

@@ -10,10 +10,13 @@ export const mailSlice = createSlice({
     openedMail: (state, action) => {
       state.selectedMail = action.payload;
     },
+    resetSelectedMail: (state) => {
+      state.selectedMail = null;
+    },
   },
 });
 
-export const { openedMail } = mailSlice.actions;
+export const { openedMail, resetSelectedMail } = mailSlice.actions;
 
 export const selectedMail = (state) => state.mail.selectedMail;
 

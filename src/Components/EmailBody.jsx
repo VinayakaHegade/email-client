@@ -7,7 +7,6 @@ import {
   selectEmailById,
 } from "../features/allMailsSlice";
 import { selectedMail } from "../features/mailSlice";
-import EmailList from "./EmailList";
 
 function EmailBody() {
   const mail = useSelector(selectedMail);
@@ -33,10 +32,7 @@ function EmailBody() {
   }, [mail]);
 
   return (
-    <div className="mail">
-      <div className="list">
-        <EmailList />
-      </div>
+    mail && (
       <div className="email_body">
         <aside>
           <div className="profileImage">
@@ -48,7 +44,7 @@ function EmailBody() {
             <strong className="email_body_subject">{mail?.subject}</strong>
             <button
               onClick={handleMarkAsFavorite}
-              className={email?.status === "favorite" ? "favorite" : ""}
+              className={email?.status.isFavorite ? "favorite" : ""}
             >
               Mark as Favorite
             </button>
@@ -71,7 +67,7 @@ function EmailBody() {
           ></article>
         </main>
       </div>
-    </div>
+    )
   );
 }
 

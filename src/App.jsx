@@ -9,13 +9,15 @@ function App() {
     <Router>
       <div className="App">
         <EmailType />
-        <Routes>
-          <Route path="mail" element={<EmailBody />} />
-          <Route exact path="/" element={<EmailList type="all" />} />
-          <Route path="/unread" element={<EmailList type="unread" />} />
-          <Route path="/read" element={<EmailList type="read" />} />
-          <Route path="/favorites" element={<EmailList type="favorite" />} />
-        </Routes>
+        <main className="main-wrapper">
+          <Routes>
+            <Route exact path="/" element={<EmailList type="all" />} />
+            <Route path="/unread" element={<EmailList type="unread" />} />
+            <Route path="/read" element={<EmailList type="read" />} />
+            <Route path="/favorites" element={<EmailList type="favorite" />} />
+          </Routes>
+          <EmailBody />
+        </main>
       </div>
     </Router>
   );

@@ -9,7 +9,10 @@ const initialState = {
 export const fetchEmails = createAsyncThunk("email/fetchEmails", async () => {
   const response = await fetch("https://flipkart-email-mock.now.sh/");
   const json = await response.json();
-  return json.list.map((email) => ({ ...email, status: "unread" }));
+  return json.list.map((email) => ({
+    ...email,
+    status: { isRead: false, isFavorite: false },
+  }));
 });
 
 const allMailsSlice = createSlice({
@@ -19,13 +22,13 @@ const allMailsSlice = createSlice({
     markAsRead: (state, action) => {
       const email = state.emails.find((email) => email.id === action.payload);
       if (email) {
-        email.status = "read";
+        email.status.isRead = true;
       }
     },
     markAsFavorite: (state, action) => {
       const email = state.emails.find((email) => email.id === action.payload);
       if (email) {
-        email.status = "favorite";
+        email.status.isFavorite = true;
       }
     },
   },
@@ -46,10 +49,9 @@ const allMailsSlice = createSlice({
   },
 });
 
-export const { markAsRead , markAsFavorite} = allMailsSlice.actions;
+export const { markAsRead, markAsFavorite } = allMailsSlice.actions;
 
 export const selectEmailById = (state, emailId) =>
   state.allMails.emails.find((email) => email.id === emailId);
-
 
 export default allMailsSlice.reducer;
